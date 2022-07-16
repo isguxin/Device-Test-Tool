@@ -4,6 +4,11 @@ from common import Common
 class ADBTool:
 
     @classmethod
+    def cmd(cls, command, device_sn=None):
+        adb_command = "adb{} {}".format(" -s {}".format(device_sn) if device_sn is not None else "", command)
+        return adb_command
+
+    @classmethod
     def show_adb_version(cls):
         """
         展示设备ADB版本
@@ -70,6 +75,18 @@ class ADBTool:
                 devices_sn_list.append(device_sn)
         return devices_sn_list
 
+    @classmethod
+    def root_device(cls, device_sn=None):
+        """
+        获取 Android 管理员的权限
+
+        :param device_sn: 设备SN
+        :return: 获取管理员权限回显
+        """
+        command = ADBTool.cmd("root", device_sn)
+        root_device = Common.shell(command)
+        return root_device
+
 
 if __name__ == '__main__':
-    print(ADBTool.connect_device("127.0.0.1:7555"))
+    print(ADBTool.root_device(device_sn="127.0.0.1:7555"))
