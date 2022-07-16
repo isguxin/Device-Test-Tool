@@ -15,6 +15,38 @@ class ADBTool:
         return adb_version
 
     @classmethod
+    def kill_adb_server(cls):
+        """
+        关闭 adb 服务
+
+        :return: None
+        """
+        command = "adb kill-server"
+        Common.shell(command, is_output=False)
+
+    @classmethod
+    def start_adb_server(cls):
+        """
+        启动 adb 服务
+
+        :return: None
+        """
+        command = "adb start-server"
+        Common.shell(command, is_output=False)
+
+    @classmethod
+    def connect_device(cls, device_sn):
+        """
+        连接设备
+
+        :param device_sn: 设备SN号
+        :return: 连接设备回显
+        """
+        command = "adb connect {}".format(device_sn)
+        connect_device = Common.shell(command)
+        return connect_device
+
+    @classmethod
     def get_devices_list(cls):
         """
         获取设备连接的device列表
@@ -40,5 +72,4 @@ class ADBTool:
 
 
 if __name__ == '__main__':
-    print(ADBTool.get_devices_list())
-    pass
+    print(ADBTool.connect_device("127.0.0.1:7555"))

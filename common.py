@@ -10,6 +10,7 @@ class Common:
 
         :param command: shell命令
         :param is_output: 是否有回显
+        :param is_output_list: 回显格式是否为列表格式
         :return: 有回显则返回回显，没有回显则返回为空
         """
         if is_output:
