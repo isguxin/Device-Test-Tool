@@ -6,6 +6,7 @@ class ADBTool:
     @classmethod
     def cmd(cls, command, device_sn=None):
         adb_command = "adb{} {}".format(" -s {}".format(device_sn) if device_sn is not None else "", command)
+        print(adb_command)
         return adb_command
 
     @classmethod
@@ -87,6 +88,35 @@ class ADBTool:
         root_device = Common.shell(command)
         return root_device
 
+    @classmethod
+    def remount_device(cls, device_sn=None):
+        """
+        获取 System 分区可写权限
+
+        :param device_sn: 设备SN
+        :return: 获取 System 分区可写权限回显
+        """
+        command = ADBTool.cmd("remount", device_sn)
+        remount_device = Common.shell(command)
+        return remount_device
+
+    @classmethod
+    def get_all_packages_list(cls, device_sn=None):
+        """
+        显示所有包名
+
+        :param device_sn: 设备SN
+        :return: 系统所有报名列表
+        """
+        command = ADBTool.cmd("shell pm list packages", device_sn)
+        all_packages_list = Common.shell(command, is_output_list=True)
+        packages_list = []
+        for line in all_packages_list:
+            tmp_pkg_name = line[8:] if line.startswith("package:") else line
+            pkg_name = tmp_pkg_name[:-3] if tmp_pkg_name.endswith("\r\r\n") else tmp_pkg_name
+            packages_list.append(pkg_name)
+        return packages_list
+
 
 if __name__ == '__main__':
-    print(ADBTool.root_device(device_sn="127.0.0.1:7555"))
+    pass
