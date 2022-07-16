@@ -4,7 +4,7 @@ from subprocess import Popen, PIPE
 class Common:
 
     @classmethod
-    def shell(cls, command, is_output=True):
+    def shell(cls, command, is_output=True, is_output_list=False):
         """
         执行shell命令
 
@@ -13,14 +13,17 @@ class Common:
         :return: 有回显则返回回显，没有回显则返回为空
         """
         if is_output:
-            command_result = Popen(command, stdin=PIPE, stdout=PIPE, shell=True).stdout.read().decode("utf_8")
-            return command_result
+            if not is_output_list:
+                command_result = Popen(command, stdin=PIPE, stdout=PIPE, shell=True).stdout.read().decode("utf-8")
+                return command_result
+            else:
+                command_result = Popen(command, stdin=PIPE, stdout=PIPE, shell=True).stdout.readlines()
+                command_list = [line.decode("utf-8") for line in command_result]
+                return command_list
         else:
             Popen(command, stdin=PIPE, stdout=PIPE, shell=True)
             return None
 
 
 if __name__ == '__main__':
-    adb_version = Common.shell("adb version")
-    print(adb_version)
-
+    pass
