@@ -62,6 +62,11 @@ class ADBTool:
 
     @classmethod
     def get_devices_list(cls):
+        """
+        查看当前连接的设备
+
+        :return: 当前连接的设备 SN 号列表
+        """
         command = Common.adb_cmd("devices")
         command_out = Common.shell(command)
         devices_sn_tmp_list = []
@@ -81,84 +86,97 @@ class ADBTool:
                 devices_sn_list.append(sn)
         return devices_sn_list
 
-    # @classmethod
-    # def get_devices_list(cls):
-    #     """
-    #     获取设备连接的device列表
-    #
-    #     :return: 连接的device列表
-    #     """
-    #     command = "adb devices"
-    #     adb_devices_list = Common.shell(command, is_output_list=True)
-    #     devices_sn_list = []
-    #     tmp_list = []
-    #     for line in adb_devices_list:
-    #         t = line.split()
-    #         if len(t) == 0:
-    #             continue
-    #         else:
-    #             tmp_list.append(t[0])
-    #     for device_sn in tmp_list:
-    #         if device_sn == "List" or len(device_sn) == 0:
-    #             continue
-    #         else:
-    #             devices_sn_list.append(device_sn)
-    #     return devices_sn_list
-    #
-    # @classmethod
-    # def root_device(cls, device_sn=None):
-    #     """
-    #     获取 Android 管理员的权限
-    #
-    #     :param device_sn: 设备SN
-    #     :return: 获取管理员权限回显
-    #     """
-    #     command = ADBTool.cmd("root", device_sn)
-    #     root_device = Common.shell(command)
-    #     return root_device
-    #
-    # @classmethod
-    # def remount_device(cls, device_sn=None):
-    #     """
-    #     获取 System 分区可写权限
-    #
-    #     :param device_sn: 设备SN
-    #     :return: 获取 System 分区可写权限回显
-    #     """
-    #     command = ADBTool.cmd("remount", device_sn)
-    #     remount_device = Common.shell(command)
-    #     return remount_device
-    #
-    # @classmethod
-    # def get_all_packages_list(cls, device_sn=None):
-    #     """
-    #     显示所有包名
-    #
-    #     :param device_sn: 设备SN
-    #     :return: 系统所有报名列表
-    #     """
-    #     command = ADBTool.cmd("shell pm list packages", device_sn)
-    #     all_packages_list = Common.shell(command, is_output_list=True)
-    #     packages_list = []
-    #     for line in all_packages_list:
-    #         tmp_pkg_name = line[8:] if line.startswith("package:") else line
-    #         pkg_name = tmp_pkg_name[:-3] if tmp_pkg_name.endswith("\r\r\n") else tmp_pkg_name
-    #         packages_list.append(pkg_name)
-    #     return packages_list
-    #
-    # @classmethod
-    # def install_apk(cls, apk_path, device_sn=None):
-    #     command = ADBTool.cmd("install -r -d {}".format(apk_path), device_sn)
-    #     install_apk = Common.shell(command, is_output_list=True)
-    #     return install_apk
-    #
-    # @classmethod
-    # def uninstall_package(cls, package_name, device_sn=None):
-    #     command = ADBTool.cmd("uninstall {}".format(package_name), device_sn)
-    #     uninstall_package = Common.shell(command, is_output_list=True)
-    #     return uninstall_package
+    @classmethod
+    def root_device(cls, device_sn=None):
+        """
+        获取 Android 管理员的权限
+
+        :param device_sn: 设备 SN 号
+        :return: 获取权限回显
+        """
+        command = Common.adb_cmd("root", device_sn)
+        command_out = Common.shell(command)
+        return command_out
+
+    @classmethod
+    def remount_device(cls, device_sn=None):
+        """
+        获取 System 分区可写权限
+
+        :param device_sn: 设备 SN 号
+        :return: 获取权限回显
+        """
+        command = Common.adb_cmd("remount", device_sn)
+        command_out = Common.shell(command)
+        return command_out
+
+    @classmethod
+    def get_all_packages(cls, device_sn=None):
+        """
+        获取设备的所有包名
+
+        :param device_sn: 设备 SN 号
+        :return: 设备的所有包名
+        """
+        command = Common.adb_cmd("shell pm list packages", device_sn)
+        command_out = Common.shell(command)
+        return command_out
+
+    @classmethod
+    def get_sys_packages(cls, device_sn=None):
+        """
+        获取设备的系统应用包名
+
+        :param device_sn: 设备 SN 号
+        :return: 设备的系统应用包名
+        """
+        command = Common.adb_cmd("shell pm list packages -s", device_sn)
+        command_out = Common.shell(command)
+        return command_out
+
+    @classmethod
+    def get_3rd_packages(cls, device_sn=None):
+        """
+        获取设备的三方应用包名
+
+        :param device_sn: 设备 SN 号
+        :return: 设备的三方应用包名
+        """
+        command = Common.adb_cmd("shell pm list packages -3", device_sn)
+        command_out = Common.shell(command)
+        return command_out
+
+    @classmethod
+    def install_apk(cls, apk_path, device_sn=None):
+        """
+        将本地 apk 软件安装到设备上
+
+        :param apk_path: 本地 apk 软件路径
+        :param device_sn: 设备 SN 号
+        :return: 安装 apk 回显
+        """
+        command = Common.adb_cmd("install -r -d {}".format(apk_path), device_sn)
+        command_out = Common.shell(command)
+        return command_out
+
+    @classmethod
+    def uninstall_package(cls, package_name, device_sn=None):
+        """
+        将设备上的 apk 卸载
+
+        :param package_name: apk 包名
+        :param device_sn: 设备 SN 号
+        :return: 卸载 apk 回显
+        """
+        command = Common.adb_cmd("uninstall {}".format(package_name), device_sn)
+        command_out = Common.shell(command)
+        return command_out
 
 
 if __name__ == '__main__':
-    print(ADBTool.get_devices_list())
+    # print(ADBTool.connect_device("127.0.0.1:7555"))
+    # print(ADBTool.get_all_packages())
+    # print(ADBTool.get_3rd_packages("127.0.0.1:7555"))
+    # print(ADBTool.install_apk(r"C:\workspace\apk\com.kugou.android.apk"))
+    print(ADBTool.uninstall_package("com.kugou.android"))
 
