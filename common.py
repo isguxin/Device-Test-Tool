@@ -1,30 +1,33 @@
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, TimeoutExpired
 
 
 class Common:
 
     @classmethod
-    def shell(cls, command, is_output=True, is_output_list=False):
+    def shell(cls, command):
         """
-        执行shell命令
+        执行 SHELL 命令
 
-        :param command: shell命令
-        :param is_output: 是否有回显
-        :param is_output_list: 回显格式是否为列表格式
-        :return: 有回显则返回回显，没有回显则返回为空
+        :param command: SHELL 命令
+        :return: 命令执行回显
         """
-        if is_output:
-            if not is_output_list:
-                command_result = Popen(command, stdin=PIPE, stdout=PIPE, shell=True).stdout.read().decode("utf-8")
-                return command_result
-            else:
-                command_result = Popen(command, stdin=PIPE, stdout=PIPE, shell=True).stdout.readlines()
-                command_list = [line.decode("utf-8") for line in command_result]
-                return command_list
-        else:
-            Popen(command, stdin=PIPE, stdout=PIPE, shell=True)
-            return None
+        p = Popen(command, stdin=PIPE, stdout=PIPE, shell=True, encoding="utf-8")
+        p_out, p_err = p.communicate()
+        return p_out
 
+    @classmethod
+    def adb_cmd(cls, command, device_sn=None):
+        """
+        拼接 ADB SHELL 命令
+
+        :param command: ADB 后的命令内容
+        :param device_sn: 设备 SN 号
+        :return: 拼接后的 ADB SHELL 命令内容
+        """
+        adb_command = "adb{} {}".format(" -s {}".format(device_sn) if device_sn is not None else "", command)
+        return adb_command
 
 if __name__ == '__main__':
-    pass
+    command = Common.adb_cmd("devices")
+    command_out = Common.shell(command)
+    print(command_out)
