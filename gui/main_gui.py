@@ -1,3 +1,5 @@
+import threading
+
 import ttkbootstrap as t
 from ttkbootstrap import DANGER, WARNING, DARK, YES, RIGHT, INFO, END, Y, X, DISABLED, N, S, LIGHT, LEFT
 from ttkbootstrap.scrolled import ScrolledText
@@ -61,11 +63,6 @@ class MainUI:
         self.get_device_sn_button = t.Button(device_list_label_frame, text="刷新", width=8, style=INFO)
         self.get_device_sn_button.pack(side=RIGHT, padx=10)
 
-        # self.device_sn = t.StringVar()
-        # get_device_sn_entry = t.Entry(device_list_label_frame, textvariable=self.device_sn, state=DISABLED)
-        # get_device_sn_entry.pack(side=RIGHT, padx=10, fill=X, expand=YES)
-        # self.device_sn.set("No devices/emulators found")
-
         self.get_device_sn_combobox = t.Combobox(device_list_label_frame, style=INFO, values=["No devices found"])
         self.get_device_sn_combobox.pack(side=RIGHT, padx=10, fill=X, expand=YES)
         self.get_device_sn_combobox.current(0)
@@ -99,6 +96,19 @@ class MainUI:
         """
         self.log_text.text.insert(END, "{}\n".format(text))
         self.log_text.text.see(END)
+
+    @staticmethod
+    def thread_it(func, *args):
+        """
+        UI与操作分离多进程
+
+        :param func: 方法
+        :param args: 参数
+        :return: None
+        """
+        thread = threading.Thread(target=func, args=args)
+        thread.daemon = True
+        thread.start()
 
 
 if __name__ == '__main__':

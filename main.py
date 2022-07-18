@@ -1,7 +1,8 @@
 from info.device_sn import DeviceSN
+from info.log_info import LogInfo
 
 
-class UI(DeviceSN):
+class UI(DeviceSN, LogInfo):
     def __init__(self):
         super().__init__()
 

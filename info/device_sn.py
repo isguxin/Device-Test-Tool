@@ -6,7 +6,7 @@ class DeviceSN(MainUI):
     def __init__(self):
         super().__init__()
 
-        self.get_device_sn_button["command"] = self.get_devices_sn_list
+        self.get_device_sn_button["command"] = lambda: self.thread_it(self.get_devices_sn_list)
 
     def get_devices_sn_list(self):
         """
