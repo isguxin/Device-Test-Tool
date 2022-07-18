@@ -54,6 +54,24 @@ class MainUI:
 
         # 设备信息框架
 
+        # 获取按钮框架
+
+        # 设备操作框架
+        device_operator_label_frame = t.LabelFrame(self.display_lower_left, text="操作您的设备")
+        device_operator_label_frame.place(x=0, width=260, y=170, height=100)
+
+        self.restart_device_button = t.Button(device_operator_label_frame, text="Restart", width=8, style=INFO)
+        self.restart_device_button.pack(side=LEFT, padx=10)
+
+        self.remount_device_button = t.Button(device_operator_label_frame, text="Remount", width=8, style=INFO)
+        self.remount_device_button.pack(side=RIGHT, padx=10)
+
+        # 日志操作框架
+
+        # 环境安装框架
+
+        # DFX框架
+
 
     def show_display_lower_right(self):
         # 获取设备列表框架
