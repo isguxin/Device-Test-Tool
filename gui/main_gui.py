@@ -18,6 +18,7 @@ class MainUI:
         """左下框架"""
         self.display_lower_left = t.Frame(self.root, style=WARNING)
         self.display_lower_left.place(x=10, width=890, y=70, height=820)
+        self.show_display_lower_left()
         """右下框架"""
         self.display_lower_right = t.Frame(self.root)
         self.display_lower_right.place(x=900, width=440, y=70, height=820)
@@ -45,7 +46,12 @@ class MainUI:
         split_line.place(x=0, width=1330, y=0)
 
     def show_display_lower_left(self):
-        pass
+        # 获取设备信息框架
+        get_device_info_label_frame = t.LabelFrame(self.display_lower_left, text="获取设备信息")
+        get_device_info_label_frame.place(x=0, width=880, y=10, height=150)
+
+        # 设备信息框架
+
 
     def show_display_lower_right(self):
         # 获取设备列表框架
@@ -55,10 +61,14 @@ class MainUI:
         self.get_device_sn_button = t.Button(device_list_label_frame, text="刷新", width=8, style=INFO)
         self.get_device_sn_button.pack(side=RIGHT, padx=10)
 
-        self.device_sn = t.StringVar()
-        get_device_sn_entry = t.Entry(device_list_label_frame, textvariable=self.device_sn, state=DISABLED)
-        get_device_sn_entry.pack(side=RIGHT, padx=10, fill=X, expand=YES)
-        self.device_sn.set("No devices/emulators found")
+        # self.device_sn = t.StringVar()
+        # get_device_sn_entry = t.Entry(device_list_label_frame, textvariable=self.device_sn, state=DISABLED)
+        # get_device_sn_entry.pack(side=RIGHT, padx=10, fill=X, expand=YES)
+        # self.device_sn.set("No devices/emulators found")
+
+        self.get_device_sn_combobox = t.Combobox(device_list_label_frame, style=INFO, values=["No devices found"])
+        self.get_device_sn_combobox.pack(side=RIGHT, padx=10, fill=X, expand=YES)
+        self.get_device_sn_combobox.current(0)
 
         # 执行ADB命令框架
         execute_cmd_label_frame = t.LabelFrame(self.display_lower_right, text="执行 ADB SHELL 命令")
