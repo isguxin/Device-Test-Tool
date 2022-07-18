@@ -1,7 +1,7 @@
 import threading
 
 import ttkbootstrap as t
-from ttkbootstrap import DANGER, WARNING, DARK, YES, RIGHT, INFO, END, Y, X, DISABLED, N, S, LIGHT, LEFT
+from ttkbootstrap import DANGER, WARNING, DARK, YES, RIGHT, INFO, END, Y, X, DISABLED, N, S, E, LIGHT, LEFT
 from ttkbootstrap.scrolled import ScrolledText
 
 
@@ -53,8 +53,69 @@ class MainUI:
         get_device_info_label_frame.place(x=0, width=880, y=10, height=150)
 
         # 设备信息框架
+        device_info_display_frame = t.Frame(get_device_info_label_frame, style=DANGER)
+        device_info_display_frame.place(x=0, width=750, y=5, height=115)
 
-        # 获取按钮框架
+        self.device_info_checkbutton_0_0 = t.Checkbutton(device_info_display_frame, width=10, style="round-toggle")
+        self.device_info_checkbutton_0_0.grid(row=0, column=0, padx=10, pady=2)
+
+        self.device_info_checkbutton_0_1 = t.Checkbutton(device_info_display_frame, width=10, style="round-toggle")
+        self.device_info_checkbutton_0_1.grid(row=0, column=1, padx=10, pady=2)
+
+        self.device_info_checkbutton_0_2 = t.Checkbutton(device_info_display_frame, width=10, style="round-toggle")
+        self.device_info_checkbutton_0_2.grid(row=0, column=2, padx=10, pady=2)
+
+        self.device_info_checkbutton_0_3 = t.Checkbutton(device_info_display_frame, width=10, style="round-toggle")
+        self.device_info_checkbutton_0_3.grid(row=0, column=3, padx=10, pady=2)
+
+        self.device_info_checkbutton_1_0 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_1_0.grid(row=1, column=0, padx=5, pady=2)
+
+        self.device_info_checkbutton_1_1 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_1_1.grid(row=1, column=1, padx=5, pady=2)
+
+        self.device_info_checkbutton_1_2 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_1_2.grid(row=1, column=2, padx=5, pady=2)
+
+        self.device_info_checkbutton_1_3 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_1_3.grid(row=1, column=3, padx=5, pady=2)
+
+        self.device_info_checkbutton_1_4 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_1_4.grid(row=1, column=4, padx=5, pady=2)
+
+        self.device_info_checkbutton_2_0 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_2_0.grid(row=2, column=0, padx=5, pady=2)
+
+        self.device_info_checkbutton_2_1 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_2_1.grid(row=2, column=1, padx=5, pady=2)
+
+        self.device_info_checkbutton_2_2 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_2_2.grid(row=2, column=2, padx=5, pady=2)
+
+        self.device_info_checkbutton_2_3 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_2_3.grid(row=2, column=3, padx=5, pady=2)
+
+        self.device_info_checkbutton_2_4 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_2_4.grid(row=2, column=4, padx=5, pady=2)
+
+        self.device_info_checkbutton_3_0 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_3_0.grid(row=3, column=0, padx=5, pady=2)
+
+        self.device_info_checkbutton_3_1 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_3_1.grid(row=3, column=1, padx=5, pady=2)
+
+        self.device_info_checkbutton_3_2 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_3_2.grid(row=3, column=2, padx=5, pady=2)
+
+        self.device_info_checkbutton_3_3 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_3_3.grid(row=3, column=3, padx=5, pady=2)
+
+        self.device_info_checkbutton_3_4 = t.Checkbutton(device_info_display_frame, width=8, style="round-toggle")
+        self.device_info_checkbutton_3_4.grid(row=3, column=4, padx=5, pady=2)
+
+        # 获取按钮
+        self.get_device_info_button = t.Button(get_device_info_label_frame, text="查询", width=8, style=INFO)
+        self.get_device_info_button.pack(side=RIGHT, padx=10)
 
         # 设备操作框架
         device_operator_label_frame = t.LabelFrame(self.display_lower_left, text="操作您的设备")
@@ -66,7 +127,7 @@ class MainUI:
         self.remount_device_button = t.Button(device_operator_label_frame, text="Remount", width=8, style=INFO)
         self.remount_device_button.pack(side=RIGHT, padx=10)
 
-        # 日志操作框架
+        # 设备日志操作框架
 
         # 环境安装框架
 
