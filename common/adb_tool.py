@@ -14,6 +14,8 @@ class ADBTool:
         for i in range(1, len(tmp_list)):
             if len(tmp_list[i]) == 0:
                 continue
+            elif tmp_list[i][1] != "device":
+                continue
             else:
                 devices_sn_list.append(tmp_list[i][0])
         return devices_sn_list

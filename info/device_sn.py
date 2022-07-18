@@ -17,13 +17,16 @@ class DeviceSN(MainUI):
         devices_sn_list = ADBTool.get_devices_sn_list()
         if len(devices_sn_list) == 0:
             self.get_device_sn_combobox["values"] = ["No devices found"]
+            self.get_device_sn_combobox.current(0)
             self.log("未连接设备")
         else:
             self.get_device_sn_combobox["values"] = devices_sn_list
             self.get_device_sn_combobox.current(0)
-            self.log("设备SN列表：{}".format(devices_sn_list))
+            self.log("有{}台设备连接：".format(len(devices_sn_list)))
+            self.log("SN列表：{}".format(devices_sn_list))
             self.log("默认选择SN：{}".format(self.get_device_sn_combobox.get()))
             self.get_device_sn_combobox.bind('<<ComboboxSelected>>', self.ensure)
+        self.log("------------------------------------------")
 
     def ensure(self, event):
         """
@@ -33,4 +36,8 @@ class DeviceSN(MainUI):
         :return: None
         """
         sn = self.get_device_sn_combobox.get()
-        self.log("已选择SN：{}".format(sn))
+        if sn == "No devices found":
+            return
+        else:
+            self.log("已选择SN：{}".format(sn))
+        self.log("------------------------------------------")

@@ -84,6 +84,8 @@ class MainUI:
         # 日志框架
         self.log_text = ScrolledText(self.display_lower_right, padding=0, bootstyle=INFO, autohide=True)
         self.log_text.place(x=10, width=430, y=230, height=590)
+        self.log_text.text.insert(END, "Information display\n")
+        self.log_text.text.insert(END, "------------------------------------------\n")
 
         self.clear_log_button = t.Button(self.display_lower_right, text="清空", width=4, style=LIGHT)
         self.clear_log_button.pack(side=RIGHT, padx=35, pady=10, anchor=S)
