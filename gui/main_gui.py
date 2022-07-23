@@ -1,7 +1,7 @@
 import threading
 
 import ttkbootstrap as t
-from ttkbootstrap import DANGER, WARNING, DARK, YES, RIGHT, INFO, END, Y, X, DISABLED, N, S, E, LIGHT, LEFT
+from ttkbootstrap import *
 from ttkbootstrap.scrolled import ScrolledText
 
 
