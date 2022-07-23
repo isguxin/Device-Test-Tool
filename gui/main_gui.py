@@ -4,13 +4,18 @@ import ttkbootstrap as t
 from ttkbootstrap import *
 from ttkbootstrap.scrolled import ScrolledText
 
+from common.config_util import ConfigUtil
+
 
 class MainUI:
     def __init__(self):
+        config = ConfigUtil("../device-test-tool.ini")
+        themename = config.get_option_value("主题", "主题")
         self.root = t.Window(
             title="Device Test Tool V2022.08",
             size=(1350, 900),
             resizable=(False, False),
+            themename=themename,
             alpha=1.0
         )
         """顶部框架"""
